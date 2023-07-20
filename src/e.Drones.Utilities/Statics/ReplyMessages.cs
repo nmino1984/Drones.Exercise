@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace e.Drones.Utilities.Statics
+namespace Drones.Utilities.Statics
 {
     public class ReplyMessages
     {

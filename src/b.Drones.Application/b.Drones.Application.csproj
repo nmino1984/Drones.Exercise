@@ -20,13 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commons\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Mappers\" />
     <Folder Include="Services\" />
-    <Folder Include="Validators\" />
-    <Folder Include="ViewModels\Requests\" />
-    <Folder Include="ViewModels\Responses\" />
   </ItemGroup>
 
 </Project>
