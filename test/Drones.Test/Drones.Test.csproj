@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\a.Drones.WebAPI\a.Drones.WebAPI.csproj" />
+    <ProjectReference Include="..\..\src\Drones.WebAPI\Drones.WebAPI.csproj" />
   </ItemGroup>
 
 </Project>
