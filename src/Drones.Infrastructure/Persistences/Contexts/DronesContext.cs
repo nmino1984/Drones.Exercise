@@ -19,9 +19,9 @@ public partial class DronesContext : DbContext
 
     public virtual DbSet<TMedicationConfiguration> TMedications { get; set; }
 
-    public virtual DbSet<NModelConfiguration> NModels { get; set; }
+    //public virtual DbSet<NModelConfiguration> NModels { get; set; }
 
-    public virtual DbSet<NStateConfiguration> NStates { get; set; }
+    //public virtual DbSet<NStateConfiguration> NStates { get; set; }
 
     public virtual DbSet<RDroneMedicationConfiguration> RDroneMedications { get; set; }
 

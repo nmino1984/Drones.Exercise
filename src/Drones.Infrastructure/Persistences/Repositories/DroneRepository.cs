@@ -2,12 +2,20 @@
 using Drones.Infrastructure.Persistences.Contexts;
 using Drones.Infrastructure.Persistences.Interfaces;
 using Drones.Utilities.Statics;
+using Microsoft.EntityFrameworkCore;
 
 namespace Drones.Infrastructure.Persistences.Repositories
 {
     public class DroneRepository : GenericRepository<TDrone>, IDroneRepository
     {
         public DroneRepository(DronesContext context) : base(context) { }
+
+        public async Task<TDrone> GetDroneBySerialNumber(string serialNumber)
+        {
+            var drone = await GetEntityQuery(x => x.Name == serialNumber).FirstOrDefaultAsync();
+
+            return drone!;
+        }
 
         public async Task<bool> GetIfDroneAvailable(int droneId)
         {

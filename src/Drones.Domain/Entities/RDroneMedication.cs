@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Drones.Domain.Entities;
 
-namespace Drones.Domain.Entities;
-
-public partial class RDroneMedication : BaseEntity
+public partial class RDroneMedication
 {
+    public int Id{ get; set; }
+
     public int IdDrone { get; set; }
 
     public int IdMedication { get; set; }

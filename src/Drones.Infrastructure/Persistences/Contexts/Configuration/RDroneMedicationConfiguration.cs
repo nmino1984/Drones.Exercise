@@ -7,9 +7,11 @@ public partial class RDroneMedicationConfiguration : IEntityTypeConfiguration<RD
 {
     public void Configure(EntityTypeBuilder<RDroneMedication> builder)
     {
+        builder.HasKey(e => e.Id);
+
         builder.ToTable("rDroneMedication");
 
-        builder.Property(e => e.Name).HasMaxLength(50); //It refers to the State of the Drone
+        builder.Property(e => e.Id);
 
         builder.HasOne(d => d.IdDroneNavigation).WithMany(p => p.RDroneMedications)
             .HasForeignKey(d => d.IdDrone)

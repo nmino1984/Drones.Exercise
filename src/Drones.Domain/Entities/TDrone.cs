@@ -10,9 +10,10 @@ public partial class TDrone : BaseEntity
 
     public int State { get; set; }
 
-    public virtual NModel ModelNavigation { get; set; } = null!;
-
     public virtual ICollection<RDroneMedication> RDroneMedications { get; set; } = new List<RDroneMedication>();
 
-    public virtual NState? StateNavigation { get; set; }
+    //public virtual NModel ModelNavigation { get; set; } = null!;
+
+
+    //public virtual NState? StateNavigation { get; set; }
 }

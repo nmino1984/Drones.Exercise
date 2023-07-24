@@ -1,36 +1,61 @@
 ﻿using Drones.Domain.Entities;
 using Drones.Infrastructure.Persistences.Contexts;
 using Drones.Infrastructure.Persistences.Interfaces;
+using Drones.Utilities.Statics;
+using Microsoft.EntityFrameworkCore;
 
 namespace Drones.Infrastructure.Persistences.Repositories
 {
-    public class DroneMedicationRepository : GenericRepository<RDroneMedication>, IDroneMedicationRepository
+    public class DroneMedicationRepository : IDroneMedicationRepository
     {
-        public DroneMedicationRepository(DronesContext context) : base(context) { }
+        private readonly DronesContext _context;
+        private readonly DbSet<RDroneMedication> _entity;
+
+        public DroneMedicationRepository(DronesContext context)
+        {
+            _context = context;
+            _entity = _context.Set<RDroneMedication>();
+        }
 
         public Task<bool> RegisterDrone(TDrone drone)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> LoadDroneWithMedicationItems(int idDrone, List<int> idMedication)
+        public async Task<bool> LoadDroneWithMedicationItems(int idDrone, List<int> listIdMedication)
         {
-            throw new NotImplementedException();
+            var rowsAffected = 0;
+
+            foreach (var item in listIdMedication)
+            {
+                var droneMedicationRow = new RDroneMedication
+                {
+                    IdDrone = idDrone,
+                    IdMedication = item,
+                    DateOpperation = DateTime.Now,
+                };
+
+                _entity.Add(droneMedicationRow);
+
+                rowsAffected += await _context.SaveChangesAsync();
+            }
+
+            return rowsAffected == listIdMedication.Count;
         }
 
-        public Task<List<TMedication>> CheckMedicationByDroneGiven(int idDrone)
+        public async Task<List<int>> CheckLoadedMedicationItemsByDroneGiven(int idDrone)
         {
-            throw new NotImplementedException();
-        }
+            List<int> listMedicationsId = new List<int>();
 
-        public Task<List<TDrone>> CheckListAvailableDrones()
-        {
-            throw new NotImplementedException();
-        }
+            var listDroneMedications = await _entity.Where(x => x.IdDrone == idDrone).AsNoTracking().ToListAsync();
 
-        public Task<int> CheckDroneBatteryGivenDrone()
-        {
-            throw new NotImplementedException();
+            foreach (var item in listDroneMedications)
+            {
+                listMedicationsId.Add(item.IdMedication);
+            }
+
+            return listMedicationsId;
+
         }
     }
 }

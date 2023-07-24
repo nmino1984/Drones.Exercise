@@ -1,4 +1,6 @@
-﻿namespace Drones.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Drones.Domain.Entities
 {
     public abstract class BaseEntity
     {

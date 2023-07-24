@@ -2,8 +2,7 @@
 {
     public class DroneRequestViewModel
     {
-        public int Id { get; set; }
-        public string? Name { get; set; }
+        public string? SerialNumber { get; set; }
         public int Model { get; set; }
         public int? WeightLimit { get; set; }
         public int? BatteryCapacity { get; set; }

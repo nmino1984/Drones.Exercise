@@ -9,13 +9,13 @@ namespace Drones.Infrastructure.Extensions
 {
     public static class InjectionExtensions
     {
-        public static IServiceCollection AddInjectionInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInjectionApplication(this IServiceCollection services, IConfiguration configuration)
         {
             var assembly = typeof(DronesContext).Assembly.FullName;
 
             services.AddDbContext<DronesContext>(
                 options => options.UseSqlServer(
-                    configuration.GetConnectionString("POSConnectionString"), b => b.MigrationsAssembly(assembly)), ServiceLifetime.Transient);
+                    configuration.GetConnectionString("DBConnectionString"), b => b.MigrationsAssembly(assembly)), ServiceLifetime.Transient);
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 

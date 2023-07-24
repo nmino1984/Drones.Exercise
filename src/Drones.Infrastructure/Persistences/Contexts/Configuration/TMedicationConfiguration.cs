@@ -10,7 +10,11 @@ public partial class TMedicationConfiguration : IEntityTypeConfiguration<TMedica
 {
     public void Configure(EntityTypeBuilder<TMedication> builder)
     {
+        builder.HasKey(e => e.Id);
+
         builder.ToTable("Medication");
+
+        builder.Property(e => e.Id);
 
         builder.Property(e => e.Name)
             .HasMaxLength(255)
