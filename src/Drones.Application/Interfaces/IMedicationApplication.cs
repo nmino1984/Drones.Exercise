@@ -9,7 +9,7 @@ namespace Drones.Application.Interfaces
     public interface IMedicationApplication
     {
         Task<BaseResponse<BaseEntityResponse<MedicationResponseViewModel>>> ListMedications();
-        Task<BaseResponse<DroneResponseViewModel>> GetMedicationById(int id);
+        Task<BaseResponse<MedicationResponseViewModel>> GetMedicationById(int id);
         Task<BaseResponse<bool>> RegisterMedication(MedicationRequestViewModel requestViewModel);
         Task<BaseResponse<bool>> EditMedication(int droneId, MedicationRequestViewModel requestViewModel);
         Task<BaseResponse<bool>> DeleteMedication(int id);

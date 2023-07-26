@@ -10,8 +10,6 @@ using Drones.Domain.Entities;
 using Drones.Infrastructure.Persistences.Interfaces;
 using Drones.Utilities.Statics;
 using FluentValidation;
-using Microsoft.Extensions.Logging;
-using System.Text;
 
 namespace Drones.Application.Services
 {
@@ -73,7 +71,8 @@ namespace Drones.Application.Services
             var response = new BaseResponse<bool>();
             var drone = await _unitOfWork.Drone.GetByIdAsync(requestViewModel.droneId);
             var listMedications = requestViewModel.listMedications!;
-            double weightToLoad = 0;
+            var droneBatteryLevel = drone.BatteryLevel;
+            double weightToLoad = 0; 
 
 
             foreach (var item in listMedications)
@@ -93,19 +92,28 @@ namespace Drones.Application.Services
             {
                 if (await _unitOfWork.Drone.GetIfDroneAvailable(drone.Id))
                 {
-                    await _unitOfWork.Drone.ChangeStateToDrone(drone.Id, StateTypes.LOADING);
-
-                    if (await _unitOfWork.DroneMedication.LoadDroneWithMedicationItems(requestViewModel.droneId, requestViewModel.listMedications!))
+                    if (droneBatteryLevel >= 25)
                     {
-                        response.IsSuccess = true;
-                        response.Data = true;
-                        response.Message = ReplyMessages.MESSAGE_QUERY;
+                        await _unitOfWork.Drone.ChangeStateToDrone(drone.Id, StateTypes.LOADING);
+
+                        if (await _unitOfWork.DroneMedication.LoadDroneWithMedicationItems(requestViewModel.droneId, requestViewModel.listMedications!))
+                        {
+                            response.IsSuccess = true;
+                            response.Data = true;
+                            response.Message = ReplyMessages.MESSAGE_QUERY;
+                        }
+                        else
+                        {
+                            response.IsSuccess = false;
+                            response.Message = ReplyMessages.MESSAGE_DRONE_NOT_LOADED;
+                        }
                     }
                     else
                     {
                         response.IsSuccess = false;
-                        response.Message = ReplyMessages.MESSAGE_DRONE_NOT_LOADED;
+                        response.Message = ReplyMessages.MESSAGE_DRONE_BATTERY_LEVEL_LESS_THAN_25;
                     }
+                    
                 }
                 else
                 {
@@ -174,15 +182,19 @@ namespace Drones.Application.Services
             {
                 foreach (var item in drones)
                 {
-                    returnList.Add(new DroneResponseViewModel
+                    if (item.BatteryLevel >= 25)
                     {
-                        Id = item.Id,
-                        SerialNumber = item.SerialNumber,
-                        Model = Enum.GetName(typeof(ModelTypes), item.Model),
-                        BatteryCapacity = item.BatteryCapacity,
-                        State = Enum.GetName(typeof(StateTypes), item.State),
-                        WeightLimit = item.WeightLimit
-                    });
+                        returnList.Add(new DroneResponseViewModel
+                        {
+                            Id = item.Id,
+                            SerialNumber = item.SerialNumber,
+                            Model = Enum.GetName(typeof(ModelTypes), item.Model),
+                            BatteryCapacity = item.BatteryCapacity,
+                            BatteryLevel = item.BatteryLevel,
+                            State = Enum.GetName(typeof(StateTypes), item.State),
+                            WeightLimit = item.WeightLimit
+                        });
+                    }
                 }
                 response.IsSuccess = true;
                 response.Data = returnList;
@@ -205,7 +217,7 @@ namespace Drones.Application.Services
             if (drone is not null)
             {
                 response.IsSuccess = true;
-                response.Data = drone.BatteryCapacity;
+                response.Data = drone.BatteryLevel;
                 response.Message = ReplyMessages.MESSAGE_QUERY;
             }
             else
@@ -216,31 +228,5 @@ namespace Drones.Application.Services
 
             return response;
         }
-
-        //public async Task<BaseResponse<List<DroneResponseViewModel>>> LoadDrones()
-        //{
-        //    var response = new BaseResponse<int>();
-        //    var drones = await _unitOfWork.Drone.GetAllAsync();
-
-        //    if (drones is not null)
-        //    {
-        //        if (drones.Count() <= 10)
-        //        {
-        //            response.IsSuccess = true;
-        //            response.Data = drone.BatteryCapacity;
-        //            response.Message = ReplyMessages.MESSAGE_QUERY;
-        //        }
-        //        else
-        //        {
-        //            response.IsSuccess = true;
-        //            response.Message = ReplyMessages.MESSAGE_MORE_THAN_10_DRONES_IN_FLEET;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        response.IsSuccess = true;
-        //        response.Message = ReplyMessages.MESSAGE_NOT_DRONES_IN_FLEET;
-        //    }
-        //}
     }
 }

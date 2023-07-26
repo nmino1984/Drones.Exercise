@@ -173,5 +173,16 @@ namespace Drones.Application.Services
 
             return await _unitOfWork.Drone.EditAsync(drone);
         }
+
+        public async Task<bool> ChangeBatteryLevelToDrone(int droneId, double droneBatteryLevel)
+        {
+            var drone = await _unitOfWork.Drone.GetByIdAsync(droneId);
+            if (droneBatteryLevel <= drone.BatteryCapacity)
+            {
+                drone.BatteryLevel = droneBatteryLevel;
+            }
+
+            return await _unitOfWork.Drone.EditAsync(drone);
+        }
     }
 }

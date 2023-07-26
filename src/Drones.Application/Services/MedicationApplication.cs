@@ -45,15 +45,15 @@ namespace Drones.Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<DroneResponseViewModel>> GetMedicationById(int id)
+        public async Task<BaseResponse<MedicationResponseViewModel>> GetMedicationById(int id)
         {
-            var response = new BaseResponse<DroneResponseViewModel>();
+            var response = new BaseResponse<MedicationResponseViewModel>();
             var medication = await _unitOfWork.Medication.GetByIdAsync(id);
 
             if (medication is not null)
             {
                 response.IsSuccess = true;
-                response.Data = _mapper.Map<DroneResponseViewModel>(medication);
+                response.Data = _mapper.Map<MedicationResponseViewModel>(medication);
                 response.Message = ReplyMessages.MESSAGE_QUERY;
             }
             else

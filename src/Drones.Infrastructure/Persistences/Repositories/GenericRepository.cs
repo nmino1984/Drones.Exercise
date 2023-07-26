@@ -1,5 +1,4 @@
 ﻿using Drones.Domain.Entities;
-using Drones.Infrastructure.Commons.Bases.Request;
 using Drones.Infrastructure.Commons.Bases.Response;
 using Drones.Infrastructure.Persistences.Contexts;
 using Drones.Infrastructure.Persistences.Interfaces;
@@ -49,9 +48,6 @@ namespace Drones.Infrastructure.Persistences.Repositories
 
         public async Task<bool> RegisteAsync(T entity)
         {
-            //entity.AuditCreateUser = 1;
-            //entity.AuditCreateDate = DateTime.Now;
-
             await _context.AddAsync(entity);
 
             var rowsAffected = await _context.SaveChangesAsync();
@@ -61,12 +57,7 @@ namespace Drones.Infrastructure.Persistences.Repositories
 
         public async Task<bool> EditAsync(T entity)
         {
-            //entity.AuditUpdateUser = 1;
-            //entity.AuditUpdateDate = DateTime.Now;
-
             _context.Update(entity);
-            //_context.Entry(entity).Property(p => p.AuditCreateUser).IsModified = false;
-            //_context.Entry(entity).Property(p => p.AuditCreateDate).IsModified = false;
 
             var rowsAffected = await _context.SaveChangesAsync();
 
@@ -76,10 +67,7 @@ namespace Drones.Infrastructure.Persistences.Repositories
         {
             T entity = await GetByIdAsync(id);
 
-            //entity!.AuditDeleteUser = 1;
-            //entity!.AuditDeleteDate = DateTime.Now;
-
-            _context.Update(entity);
+            _context.Remove(entity);
 
             var rowsAffected = await _context.SaveChangesAsync();
 
@@ -97,17 +85,5 @@ namespace Drones.Infrastructure.Persistences.Repositories
 
             return query;
         }
-
-        //public IQueryable<TDTO> Ordering<TDTO>(BasePaginationRequest request, IQueryable<TDTO> queryable, bool pagination = false) where TDTO : class
-        //{
-        //    IQueryable<TDTO> queryViewModel = request.Order == "desc" ? queryable.OrderBy($"{request.Sort} descending") : queryable.OrderBy($"{request.Sort} ascending");
-
-        //    if (pagination)
-        //    {
-        //        queryViewModel = queryViewModel.Paginate(request);
-        //    }
-
-        //    return queryViewModel;
-        //}
     }
 }

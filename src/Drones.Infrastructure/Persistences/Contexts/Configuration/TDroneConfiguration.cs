@@ -14,7 +14,7 @@ public partial class TDroneConfiguration : IEntityTypeConfiguration<TDrone>
         builder.Property(e => e.Id);
         builder.Property(e => e.WeightLimit);
         builder.Property(e => e.BatteryCapacity);
-        builder.Property(e => e.Batterylevel);
+        builder.Property(e => e.BatteryLevel);
         builder.Property(e => e.State);
         builder.Property(e => e.SerialNumber) //It refers to Serial Number
             .HasMaxLength(100)

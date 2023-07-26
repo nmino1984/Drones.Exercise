@@ -46,21 +46,6 @@ namespace Drones.Infrastructure.Persistences.Repositories
             return drone.BatteryCapacity;
         }
 
-        public async Task<bool> SetDroneBatteryLevel(int droneId, double batteryLevel)
-        {
-            var drone = await GetByIdAsync(droneId);
-
-            if (batteryLevel <= drone.BatteryCapacity)
-            {
-                drone.BatteryLevel = batteryLevel;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         public async Task<bool> ChangeStateToDrone(int droneId, StateTypes newState)
         {
             var drone = await GetByIdAsync(droneId);

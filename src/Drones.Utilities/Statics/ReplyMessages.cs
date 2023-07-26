@@ -26,6 +26,7 @@ namespace Drones.Utilities.Statics
         public const string MESSAGE_NOT_DRONE_AVAILABLE = "Not Drone Available at this moment!";
         public const string MESSAGE_SELECTED_DRONE_NOT_AVAILABLE = "The Selected Drone is Not Available at this moment!";
         public const string MESSAGE_DRONE_BATTERY_LEVEL = "Drone Battery level retrieve Successfully.";
+        public const string MESSAGE_DRONE_BATTERY_LEVEL_LESS_THAN_25 = "Battery level must be Greater Than 25% to Load the Drone.";
         public const string MESSAGE_DRONE_BATTERY_LEVEL_ERROR = "There was an Error Retrieving Drone Battery level.";
         public const string MESSAGE_TOO_HEAVY_LOAD_FOR_SELECTED_DRONE = "There is a too heavy Load for the Selected Drone.";
     }

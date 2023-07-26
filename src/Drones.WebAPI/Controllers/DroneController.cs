@@ -1,6 +1,7 @@
 ﻿using Drones.Application.Interfaces;
 using Drones.Application.ViewModels.Drone.Request;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Azure;
 
 namespace Drones.WebAPI.Controllers
 {
@@ -40,6 +41,13 @@ namespace Drones.WebAPI.Controllers
         public async Task<IActionResult> EditDrone([FromRoute] int droneId, [FromBody] DroneRequestViewModel requestViewModel)
         {
             var response = await _droneApplication.EditDrone(droneId, requestViewModel);
+            return Ok(response);
+        }
+
+        [HttpPut("SetBatterylevel/{droneId:int}/{droneBatteryLevel:double}")]
+        public async Task<IActionResult> SetBatteryLevel([FromRoute] int droneId, [FromRoute] double droneBatteryLevel)
+        {
+            var response = await _droneApplication.ChangeBatteryLevelToDrone(droneId, droneBatteryLevel);
             return Ok(response);
         }
 

@@ -9,7 +9,6 @@ namespace Drones.Infrastructure.Persistences.Interfaces
         Task<TDrone> GetDroneBySerialNumber(string serialNumber);
         Task<bool> GetIfDroneAvailable(int droneId);
         Task<double> GetDroneBattery(int droneId);
-        Task<bool> SetDroneBatteryLevel(int droneId, double batteryLevel);
         Task<bool> ChangeStateToDrone(int droneId, StateTypes newState);
         Task<double> GetDroneWeightLimit(int droneId);
     }

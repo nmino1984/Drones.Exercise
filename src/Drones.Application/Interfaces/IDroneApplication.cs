@@ -15,5 +15,6 @@ namespace Drones.Application.Interfaces
         Task<BaseResponse<bool>> EditDrone(int droneId, DroneRequestViewModel requestViewModel);
         Task<BaseResponse<bool>> DeleteDrone(int droneId);
         Task<bool> ChangeStateToDrone(int droneId, StateTypes newState);
+        Task<bool> ChangeBatteryLevelToDrone(int droneId, double droneBatterylevel);
     }
 }
