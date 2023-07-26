@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 
 namespace Drones.Domain.Entities;
 
@@ -12,7 +9,7 @@ public partial class TMedicationConfiguration : IEntityTypeConfiguration<TMedica
     {
         builder.HasKey(e => e.Id);
 
-        builder.ToTable("Medication");
+        builder.ToTable("tMedication");
 
         builder.Property(e => e.Id);
 
@@ -22,6 +19,8 @@ public partial class TMedicationConfiguration : IEntityTypeConfiguration<TMedica
         builder.Property(e => e.Code)
             .HasMaxLength(255)
             .IsUnicode(false);
-        builder.Property(e => e.Image).HasColumnType("image");
+        builder.Property(e => e.Image)
+            .HasMaxLength(255)
+            .IsUnicode(false);
     }
 }

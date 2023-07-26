@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Drones.Utilities\Drones.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+
 </Project>

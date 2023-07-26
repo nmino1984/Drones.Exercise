@@ -14,13 +14,13 @@ public partial class RDroneMedicationConfiguration : IEntityTypeConfiguration<RD
         builder.Property(e => e.Id);
 
         builder.HasOne(d => d.IdDroneNavigation).WithMany(p => p.RDroneMedications)
-            .HasForeignKey(d => d.IdDrone)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_rDroneMedication_tDrone");
+                .HasForeignKey(d => d.IdDrone)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_rDroneMedication_tDrone");
 
         builder.HasOne(d => d.IdMedicationNavigation).WithMany(p => p.RDroneMedications)
-            .HasForeignKey(d => d.IdMedication)
-            .OnDelete(DeleteBehavior.ClientSetNull)
-            .HasConstraintName("FK_rDroneMedication_tMedication");
+                .HasForeignKey(d => d.IdMedication)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_rDroneMedication_tMedication");
     }
 }

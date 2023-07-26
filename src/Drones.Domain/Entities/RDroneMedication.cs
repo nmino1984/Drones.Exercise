@@ -1,9 +1,7 @@
 ﻿namespace Drones.Domain.Entities;
 
-public partial class RDroneMedication
+public partial class RDroneMedication : BaseEntity
 {
-    public int Id{ get; set; }
-
     public int IdDrone { get; set; }
 
     public int IdMedication { get; set; }

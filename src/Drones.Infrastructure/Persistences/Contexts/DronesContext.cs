@@ -17,21 +17,21 @@ public partial class DronesContext : DbContext
     {
     }
 
-    public virtual DbSet<TMedicationConfiguration> TMedications { get; set; }
+    public virtual DbSet<TDrone> TDrones { get; set; }
+     
+    public virtual DbSet<TMedication> TMedications { get; set; }
 
-    //public virtual DbSet<NModelConfiguration> NModels { get; set; }
-
-    //public virtual DbSet<NStateConfiguration> NStates { get; set; }
-
-    public virtual DbSet<RDroneMedicationConfiguration> RDroneMedications { get; set; }
-
-    public virtual DbSet<TDroneConfiguration> TDrones { get; set; }
+    public virtual DbSet<RDroneMedication> RDroneMedications { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.HasAnnotation("Relational:Collation", "Modern_Spanish_CI_AS");
 
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        //modelBuilder.ApplyConfiguration<TDrone>(new TDroneConfiguration());
+        //modelBuilder.ApplyConfiguration<TMedication>(new TMedicationConfiguration());
+        //modelBuilder.ApplyConfiguration<RDroneMedication>(new RDroneMedicationConfiguration());
 
         OnModelCreatingPartial(modelBuilder);
     }

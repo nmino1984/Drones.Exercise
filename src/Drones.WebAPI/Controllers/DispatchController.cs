@@ -1,8 +1,9 @@
 ﻿using Drones.Application.Interfaces;
 using Drones.Application.ViewModels.Drone.Request;
 using Drones.Application.ViewModels.DroneMedication.Request;
-using Drones.Utilities.Statics;
 using Microsoft.AspNetCore.Mvc;
+using Drones.Utilities.Statics;
+using Hangfire;
 
 namespace Drones.WebAPI.Controllers
 {
@@ -10,51 +11,66 @@ namespace Drones.WebAPI.Controllers
     [ApiController]
     public class DispatchController : ControllerBase
     {
-        private readonly IDroneMedicationApplication _droneMedicationApplication;
+        private readonly IDispatchApplication _dispatchApplication;
+        private readonly IDroneApplication _droneApplication;
 
-        public DispatchController(IDroneMedicationApplication droneMedicationApplication)
+        public DispatchController(IDispatchApplication dispatchApplication, IDroneApplication droneApplication)
         {
-            this._droneMedicationApplication = droneMedicationApplication;           
-
+            this._dispatchApplication = dispatchApplication;
+            this._droneApplication = droneApplication;
         }
 
         [HttpPost("RegisterDrone")]
         public async Task<IActionResult> RegisterDrone([FromBody] DroneRequestViewModel requestViewModel)
         {
-            List<string> listaSerials = new List<string>();
-            for (int i = 0; i < 100; i++)
-            {
-                listaSerials.Add(SerialGenerate.Generate());
-            }
-            var response = await _droneMedicationApplication.RegisterDrone(requestViewModel);
+            var response = await _dispatchApplication.RegisterDrone(requestViewModel);
             return Ok(response);
         }
 
-        [HttpGet("LoadMedications")]
+        //[HttpPost("LoadMedicationsToDrone")]
+        //public async Task<IActionResult> LoadDroneWithMeditionItems(IFormFile uploadedFile, [FromBody] DispatchRequestViewModel input)
+        //{
+        //    var saveFilePath = Path.Combine("Images/", uploadedFile.FileName);
+        //    using (var stream = new FileStream(saveFilePath, FileMode.Create))
+        //    {
+        //        await uploadedFile.CopyToAsync(stream);
+        //    }
+
+        //    var response = await _dispatchApplication.LoadDroneWithMeditionItems(input);
+
+        //    return Ok(response);
+        //}
+
+        [HttpPost("LoadMedicationsToDrone")]
         public async Task<IActionResult> LoadDroneWithMeditionItems([FromBody] DispatchRequestViewModel input)
         {
-            var response = await _droneMedicationApplication.LoadDroneWithMeditionItems(input);
+            var response = await _dispatchApplication.LoadDroneWithMeditionItems(input);
+            if (response.IsSuccess)
+            {
+                await _droneApplication.ChangeStateToDrone(input.droneId, StateTypes.LOADED);
+            }
             return Ok(response);
         }
 
         [HttpGet("MedicationsByDrone/{droneId:int}")]
         public async Task<IActionResult> CheckingLoadedMedicationItemsByDroneGiven([FromRoute]int droneId)
         {
-            var response = await _droneMedicationApplication.CheckingLoadedMedicationItemsByDroneGiven(droneId);
+            var response = await _dispatchApplication.CheckingLoadedMedicationItemsByDroneGiven(droneId);
+
             return Ok(response);
         }
 
         [HttpGet("AvailableDrones")]
-        public async Task<IActionResult> CheckingAvailableDronesForLoaded([FromRoute] int droneId)
+        public async Task<IActionResult> CheckingAvailableDronesForLoaded()
         {
-            var response = await _droneMedicationApplication.CheckingAvailableDronesForLoaded();
+            var response = await _dispatchApplication.CheckingAvailableDronesForLoaded();
             return Ok(response);
         }
 
         [HttpGet("DroneBattery/{droneId:int}")]
         public async Task<IActionResult> CheckDroneBatteryLevelByDroneGiven([FromRoute] int droneId)
         {
-            var response = await _droneMedicationApplication.CheckDroneBatteryLevelByDroneGiven(droneId);
+            var response = await _dispatchApplication.CheckDroneBatteryLevelByDroneGiven(droneId);
             return Ok(response);
         }
     }

@@ -1,4 +1,6 @@
 ﻿using Drones.Domain.Entities;
+using Drones.Infrastructure.Commons.Bases.Request;
+using Drones.Infrastructure.Commons.Bases.Response;
 using Drones.Infrastructure.Persistences.Contexts;
 using Drones.Infrastructure.Persistences.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -7,12 +9,12 @@ using System.Linq.Expressions;
 
 namespace Drones.Infrastructure.Persistences.Repositories
 {
-    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity  
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         private readonly DronesContext _context;
         private readonly DbSet<T> _entity;
 
-        public GenericRepository(DronesContext context) 
+        public GenericRepository(DronesContext context)
         {
             _context = context;
             _entity = _context.Set<T>();
@@ -23,6 +25,19 @@ namespace Drones.Infrastructure.Persistences.Repositories
             var getAll = await _entity.AsNoTracking().ToListAsync();
 
             return getAll;
+        }
+
+        public async Task<BaseEntityResponse<T>> GetAllAsyncAsResponse()
+        {
+            var response = new BaseEntityResponse<T>();
+
+            var getAll = await _entity.AsNoTracking().ToListAsync();
+
+            response.TotalRecords = getAll.Count;
+            response.Items = getAll;
+
+            return response;
+
         }
 
         public async Task<T> GetByIdAsync(int id)
@@ -91,7 +106,7 @@ namespace Drones.Infrastructure.Persistences.Repositories
         //    {
         //        queryViewModel = queryViewModel.Paginate(request);
         //    }
-            
+
         //    return queryViewModel;
         //}
     }

@@ -1,17 +1,14 @@
-﻿using Drones.Domain.Entities;
-using System;
-using System.Collections.Generic;
-
-namespace Drones.Domain.Entities;
+﻿namespace Drones.Domain.Entities;
 
 public partial class TMedication : BaseEntity
 {
+    public string? Name { get; set; }
 
-    public int? Weight { get; set; }
+    public double Weight { get; set; }
 
     public string? Code { get; set; }
 
-    public byte[]? Image { get; set; }
+    public string? Image { get; set; }
 
     public virtual ICollection<RDroneMedication> RDroneMedications { get; set; } = new List<RDroneMedication>();
 }

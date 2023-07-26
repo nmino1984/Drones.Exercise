@@ -12,9 +12,9 @@
 
     public enum ModelTypes
     {
-        Lightweight = 0, 
-        Middleweight = 1, 
-        Cruiserweight = 2, 
-        Heavyweight = 3
+        Lightweight = 1, 
+        Middleweight = 2, 
+        Cruiserweight = 3, 
+        Heavyweight = 4
     }
 }

@@ -2,11 +2,15 @@
 
 public partial class TDrone : BaseEntity
 {
+    public string? SerialNumber { get; set; }
+
     public int Model { get; set; }
 
-    public int WeightLimit { get; set; }
+    public double WeightLimit { get; set; }
 
-    public int BatteryCapacity { get; set; }
+    public double BatteryCapacity { get; set; }
+
+    public double BatteryLevel { get; set; }
 
     public int State { get; set; }
 

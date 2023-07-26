@@ -28,6 +28,8 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+//RecurringJob
+
 app.UseCors(Cors);
 
 // Configure the HTTP request pipeline.

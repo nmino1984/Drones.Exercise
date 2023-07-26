@@ -21,9 +21,6 @@ namespace POS.Application.Mappers
 
             CreateMap<DroneRequestViewModel, TDrone>()
                 .ReverseMap();
-
-            CreateMap<TDrone, DroneSelectResponseViewModel>()
-                .ReverseMap();
         }
     }
 }

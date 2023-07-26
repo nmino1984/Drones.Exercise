@@ -1,12 +1,16 @@
 ﻿using Drones.Domain.Entities;
+using Drones.Utilities.Statics;
 
 namespace Drones.Infrastructure.Persistences.Interfaces
 {
     public interface IDroneRepository : IGenericRepository<TDrone>
     {
+        Task<bool> IsPossibleToAddADrone();
         Task<TDrone> GetDroneBySerialNumber(string serialNumber);
         Task<bool> GetIfDroneAvailable(int droneId);
-        Task<int> GetDroneBattery(int droneId);
-        Task<int> GetDroneWeightLimit(int droneId);
+        Task<double> GetDroneBattery(int droneId);
+        Task<bool> SetDroneBatteryLevel(int droneId, double batteryLevel);
+        Task<bool> ChangeStateToDrone(int droneId, StateTypes newState);
+        Task<double> GetDroneWeightLimit(int droneId);
     }
 }

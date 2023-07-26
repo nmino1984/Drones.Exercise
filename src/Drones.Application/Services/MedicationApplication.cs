@@ -28,7 +28,7 @@ namespace Drones.Application.Services
         public async Task<BaseResponse<BaseEntityResponse<MedicationResponseViewModel>>> ListMedications()
         {
             var response = new BaseResponse<BaseEntityResponse<MedicationResponseViewModel>>();
-            var medications = await _unitOfWork.Medication.GetAllAsync();
+            var medications = await _unitOfWork.Medication.GetAllAsyncAsResponse();
 
             if (medications is not null)
             {

@@ -26,6 +26,7 @@ namespace Drones.Infrastructure.Persistences.Repositories
         {
             var rowsAffected = 0;
 
+
             foreach (var item in listIdMedication)
             {
                 var droneMedicationRow = new RDroneMedication

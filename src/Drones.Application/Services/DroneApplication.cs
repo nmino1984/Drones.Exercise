@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Drones.Application.Commons.Bases;
 using Drones.Application.Interfaces;
-using Drones.Application.Validators.Category;
+using Drones.Application.Validators;
 using Drones.Application.ViewModels.Drone.Request;
 using Drones.Application.ViewModels.Drone.Response;
 using Drones.Domain.Entities;
@@ -27,7 +27,7 @@ namespace Drones.Application.Services
         public async Task<BaseResponse<BaseEntityResponse<DroneResponseViewModel>>> ListDrones()
         {
             var response = new BaseResponse<BaseEntityResponse<DroneResponseViewModel>>();
-            var drones = await _unitOfWork.Drone.GetAllAsync();
+            var drones = await _unitOfWork.Drone.GetAllAsyncAsResponse();
 
             if (drones is not null)
             {
@@ -78,8 +78,8 @@ namespace Drones.Application.Services
                 return response;
             }
 
-            var category = _mapper.Map<TDrone>(requestViewModel);
-            response.Data = await _unitOfWork.Drone.RegisteAsync(category);
+            var drone = _mapper.Map<TDrone>(requestViewModel);
+            response.Data = await _unitOfWork.Drone.RegisteAsync(drone);
 
             if (response.Data)
             {
@@ -164,6 +164,14 @@ namespace Drones.Application.Services
             }
 
             return response;
+        }
+
+        public async Task<bool> ChangeStateToDrone(int droneId, StateTypes newState)
+        {
+            var drone = await _unitOfWork.Drone.GetByIdAsync(droneId);
+            drone.State = (int)newState;
+
+            return await _unitOfWork.Drone.EditAsync(drone);
         }
     }
 }

@@ -9,7 +9,8 @@ namespace Drones.Application.Validators.Category
         {
             RuleFor(x => x.Name)
                 .NotNull().WithMessage("Name can't be Null")
-                .NotEmpty().WithMessage("Name can't be Empty");
+                .NotEmpty().WithMessage("Name can't be Empty")
+                .Matches("^[a-zA-Z0-9-_]*$");
 
 
             RuleFor(x => x.Weight)
@@ -18,7 +19,8 @@ namespace Drones.Application.Validators.Category
 
             RuleFor(x => x.Code)
                 .NotNull().WithMessage("Code can't be Null")
-                .NotEmpty().WithMessage("Code can't be Empty");
+                .NotEmpty().WithMessage("Code can't be Empty")
+                .Matches("^[A-Z0-9_]*$");
 
 
         }

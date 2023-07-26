@@ -6,12 +6,12 @@ using Drones.Application.ViewModels.Response;
 
 namespace Drones.Application.Interfaces
 {
-    public interface IDroneMedicationApplication
+    public interface IDispatchApplication
     {
         Task<BaseResponse<bool>> RegisterDrone(DroneRequestViewModel requestViewModel);
         Task<BaseResponse<bool>> LoadDroneWithMeditionItems(DispatchRequestViewModel requestViewModel);
         Task<BaseResponse<List<MedicationResponseViewModel>>> CheckingLoadedMedicationItemsByDroneGiven(int droneId);
         Task<BaseResponse<List<DroneResponseViewModel>>> CheckingAvailableDronesForLoaded();
-        Task<BaseResponse<int>> CheckDroneBatteryLevelByDroneGiven(int droneId);
+        Task<BaseResponse<double>> CheckDroneBatteryLevelByDroneGiven(int droneId);
     }
 }

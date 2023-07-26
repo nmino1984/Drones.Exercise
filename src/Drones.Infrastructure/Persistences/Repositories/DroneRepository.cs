@@ -10,9 +10,20 @@ namespace Drones.Infrastructure.Persistences.Repositories
     {
         public DroneRepository(DronesContext context) : base(context) { }
 
+        public async Task<bool> IsPossibleToAddADrone()
+        {
+            var drones = await GetAllAsync();
+
+            if (drones.Count() < 10)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public async Task<TDrone> GetDroneBySerialNumber(string serialNumber)
         {
-            var drone = await GetEntityQuery(x => x.Name == serialNumber).FirstOrDefaultAsync();
+            var drone = await GetEntityQuery(x => x.SerialNumber == serialNumber).FirstOrDefaultAsync();
 
             return drone!;
         }
@@ -28,14 +39,37 @@ namespace Drones.Infrastructure.Persistences.Repositories
             return false;
         }
 
-        public async Task<int> GetDroneBattery(int droneId)
+        public async Task<double> GetDroneBattery(int droneId)
         {
             var drone = await GetByIdAsync(droneId);
 
             return drone.BatteryCapacity;
         }
 
-        public async Task<int> GetDroneWeightLimit(int droneId)
+        public async Task<bool> SetDroneBatteryLevel(int droneId, double batteryLevel)
+        {
+            var drone = await GetByIdAsync(droneId);
+
+            if (batteryLevel <= drone.BatteryCapacity)
+            {
+                drone.BatteryLevel = batteryLevel;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> ChangeStateToDrone(int droneId, StateTypes newState)
+        {
+            var drone = await GetByIdAsync(droneId);
+            drone.State = (int)newState;
+            
+            return await EditAsync(drone);
+        }
+
+        public async Task<double> GetDroneWeightLimit(int droneId)
         {
             var drone = await GetByIdAsync(droneId);
 
