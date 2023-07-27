@@ -1,4 +1,6 @@
-# Drones Exercise. Application created using .NET Technologies with EntityFramework Core, besides SQL Server as Database.
+# Drones Exercise
+
+## Application created using .NET Technologies with EntityFramework Core, besides SQL Server as Database.
 
 Introduction to the Exercise:
 
