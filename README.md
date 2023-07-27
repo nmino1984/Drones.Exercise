@@ -68,3 +68,6 @@ No Test could be implemented because of the Time
 ## Tarea 3 - Implementing the Web API
 * Added the Dispatch Controller, which will have the implementing of the 5 Tasks.
 * Added the Drone and Medication Controller, to manage the two entities.
+
+## The Solution is in my Personal Repository:
+https://github.com/nmino1984/Drones.Exercise
