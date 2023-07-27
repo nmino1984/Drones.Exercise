@@ -8,6 +8,8 @@ public partial class RDroneMedication : BaseEntity
 
     public DateTime DateOpperation { get; set; }
 
+    public bool Active { get; set; }
+
     public virtual TDrone IdDroneNavigation { get; set; } = null!;
 
     public virtual TMedication IdMedicationNavigation { get; set; } = null!;

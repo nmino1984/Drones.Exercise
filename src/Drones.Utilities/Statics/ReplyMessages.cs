@@ -16,9 +16,8 @@ namespace Drones.Utilities.Statics
         public const string MESSAGE_TOKEN = "Token generated Successfully";
         public const string MESSAGE_VALIDATE = "Errors on the Validation";
         public const string MESSAGE_FAILED = "Operation Failed";
-
         public const string MESSAGE_NOT_DRONES_IN_FLEET = "There are no Drones in the Fleet";
-        public const string MESSAGE_ALREADY_10_DRONES_IN_FLEET = "There alreagy 10 (ten) Drones in the Fleet. Only 10 Drones allowed.";
+        public const string MESSAGE_ALREADY_10_DRONES_IN_FLEET = "There already 10 (ten) Drones in the Fleet. Only 10 Drones allowed.";
         public const string MESSAGE_MORE_THAN_10_DRONES_IN_FLEET = "There are more than 10 (ten) Drones in the Fleet. Will be shown first 10 in Database";
         public const string MESSAGE_WRONG_DRONE_ID = "The Drone Id given was not found!";
         public const string MESSAGE_EMPTY_MEDICATIONS = "There are no Medications to Load the Drone!";

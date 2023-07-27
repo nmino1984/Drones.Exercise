@@ -3,6 +3,7 @@ using Drones.Infrastructure.Persistences.Contexts;
 using Drones.Infrastructure.Persistences.Interfaces;
 using Drones.Utilities.Statics;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace Drones.Infrastructure.Persistences.Repositories
 {
@@ -17,9 +18,11 @@ namespace Drones.Infrastructure.Persistences.Repositories
             _entity = _context.Set<RDroneMedication>();
         }
 
-        public Task<bool> RegisterDrone(TDrone drone)
+        public async Task<List<RDroneMedication>> GetDroneMedications(int idDrone)
         {
-            throw new NotImplementedException();
+            var listDroneMedications = await _entity.Where(w=>w.IdDrone == idDrone && w.Active == true) .ToListAsync();
+
+            return listDroneMedications;
         }
 
         public async Task<bool> LoadDroneWithMedicationItems(int idDrone, List<int> listIdMedication)
@@ -34,6 +37,7 @@ namespace Drones.Infrastructure.Persistences.Repositories
                     IdDrone = idDrone,
                     IdMedication = item,
                     DateOpperation = DateTime.Now,
+                    Active = true,
                 };
 
                 _entity.Add(droneMedicationRow);
@@ -48,7 +52,7 @@ namespace Drones.Infrastructure.Persistences.Repositories
         {
             List<int> listMedicationsId = new List<int>();
 
-            var listDroneMedications = await _entity.Where(x => x.IdDrone == idDrone).AsNoTracking().ToListAsync();
+            var listDroneMedications = await _entity.Where(x => x.IdDrone == idDrone && x.Active == true).AsNoTracking().ToListAsync();
 
             foreach (var item in listDroneMedications)
             {
@@ -58,5 +62,16 @@ namespace Drones.Infrastructure.Persistences.Repositories
             return listMedicationsId;
 
         }
+
+        public async Task<bool> EditAsync(RDroneMedication entity)
+        {
+
+            _context.Update(entity);
+
+            var rowsAffected = await _context.SaveChangesAsync();
+
+            return rowsAffected > 0;
+        }
+
     }
 }

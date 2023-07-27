@@ -4,6 +4,7 @@
     {
         public int DroneId { get; set; }
         public List<int>? ListMedications { get; set; }
+        public bool? Active { get; set; }     
 
     }
 }

@@ -171,6 +171,17 @@ namespace Drones.Application.Services
             var drone = await _unitOfWork.Drone.GetByIdAsync(droneId);
             drone.State = (int)newState;
 
+            if (drone.State == (int)StateTypes.IDLE)
+            {
+                var listDroneMedicationsActives = await _unitOfWork.DroneMedication.GetDroneMedications(droneId);
+
+                foreach (var item in listDroneMedicationsActives)
+                {
+                    item.Active = false;
+                    await _unitOfWork.DroneMedication.EditAsync(item);
+                }
+            }
+
             return await _unitOfWork.Drone.EditAsync(drone);
         }
 

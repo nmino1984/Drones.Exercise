@@ -43,7 +43,7 @@ namespace Drones.WebAPI.Controllers
             return Ok(response);
         }
 
-        [HttpPut("Delete/{medicationId:int}")]
+        [HttpDelete("Delete/{medicationId:int}")]
         public async Task<IActionResult> DeleteDrone([FromRoute] int medicationId)
         {
             var response = await _medicationApplication.DeleteMedication(medicationId);

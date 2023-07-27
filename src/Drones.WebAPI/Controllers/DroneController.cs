@@ -1,5 +1,6 @@
 ﻿using Drones.Application.Interfaces;
 using Drones.Application.ViewModels.Drone.Request;
+using Drones.Utilities.Statics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Azure;
 
@@ -44,6 +45,13 @@ namespace Drones.WebAPI.Controllers
             return Ok(response);
         }
 
+        [HttpDelete("Delete/{droneId:int}")]
+        public async Task<IActionResult> DeleteDrone([FromRoute] int droneId)
+        {
+            var response = await _droneApplication.DeleteDrone(droneId);
+            return Ok(response);
+        }
+
         [HttpPut("SetBatterylevel/{droneId:int}/{droneBatteryLevel:double}")]
         public async Task<IActionResult> SetBatteryLevel([FromRoute] int droneId, [FromRoute] double droneBatteryLevel)
         {
@@ -51,10 +59,10 @@ namespace Drones.WebAPI.Controllers
             return Ok(response);
         }
 
-        [HttpPut("Delete/{droneId:int}")]
-        public async Task<IActionResult> DeleteDrone([FromRoute] int droneId)
+        [HttpPut("SetDroneState/{droneId:int}/{droneState:int}")]
+        public async Task<IActionResult> SetDroneStateDrone(int droneId, int droneState)
         {
-            var response = await _droneApplication.DeleteDrone(droneId);
+            var response = await _droneApplication.ChangeStateToDrone(droneId, (StateTypes)droneState);
             return Ok(response);
         }
     }
