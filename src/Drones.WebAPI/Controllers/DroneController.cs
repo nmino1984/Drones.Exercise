@@ -2,7 +2,6 @@
 using Drones.Application.ViewModels.Drone.Request;
 using Drones.Utilities.Statics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Azure;
 
 namespace Drones.WebAPI.Controllers
 {
@@ -17,7 +16,7 @@ namespace Drones.WebAPI.Controllers
             this._droneApplication = droneApplication;
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> ListDrones()
         {
             var response = await _droneApplication.ListDrones();

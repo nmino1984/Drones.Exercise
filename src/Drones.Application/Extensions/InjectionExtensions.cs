@@ -1,4 +1,4 @@
-﻿using Drones.Application.Interfaces;
+using Drones.Application.Interfaces;
 using Drones.Application.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -10,17 +10,15 @@ namespace Drones.Application.Extensions
 {
     public static class InjectionExtensions
     {
-        [Obsolete]
         public static IServiceCollection AddInjectionInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton(configuration);
 
-            services.AddFluentValidation(options =>
-            {
-                options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies().Where(w => !w.IsDynamic));
-            });
+            services.AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblies(
+                AppDomain.CurrentDomain.GetAssemblies().Where(w => !w.IsDynamic));
 
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(cfg => cfg.AddMaps(Assembly.GetExecutingAssembly()));
 
             services.AddScoped<IMedicationApplication, MedicationApplication>();
             services.AddScoped<IDroneApplication, DroneApplication>();

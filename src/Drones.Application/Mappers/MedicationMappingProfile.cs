@@ -4,7 +4,7 @@ using Drones.Application.ViewModels.Response;
 using Drones.Domain.Entities;
 using Drones.Infrastructure.Commons.Bases.Response;
 
-namespace POS.Application.Mappers
+namespace Drones.Application.Mappers
 {
     public class MedicationMappingsProfile : Profile
     {

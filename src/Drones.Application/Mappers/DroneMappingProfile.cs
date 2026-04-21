@@ -5,7 +5,7 @@ using Drones.Infrastructure.Commons.Bases.Response;
 using Drones.Domain.Entities;
 using Drones.Utilities.Statics;
 
-namespace POS.Application.Mappers
+namespace Drones.Application.Mappers
 {
     public class DroneMappingsProfile : Profile
     {
