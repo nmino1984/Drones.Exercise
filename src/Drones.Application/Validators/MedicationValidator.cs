@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Drones.Application.ViewModels.Request;
 
-namespace Drones.Application.Validators.Category
+namespace Drones.Application.Validators
 {
     public class MedicationValidator : AbstractValidator<MedicationRequestViewModel>
     {

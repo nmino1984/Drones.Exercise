@@ -66,7 +66,7 @@ namespace Drones.Application.Services
             return response;
         }
 
-        public async Task<BaseResponse<bool>> LoadDroneWithMeditionItems(DispatchRequestViewModel requestViewModel)
+        public async Task<BaseResponse<bool>> LoadDroneWithMedicationItems(DispatchRequestViewModel requestViewModel)
         {
             var response = new BaseResponse<bool>();
             var drone = await _unitOfWork.Drone.GetByIdAsync(requestViewModel.droneId);

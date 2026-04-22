@@ -34,7 +34,7 @@ namespace Drones.WebAPI.Controllers
         }
 
         //[HttpPost("LoadMedicationsToDrone")]
-        //public async Task<IActionResult> LoadDroneWithMeditionItems(IFormFile uploadedFile, [FromBody] DispatchRequestViewModel input)
+        //public async Task<IActionResult> LoadDroneWithMedicationItems(IFormFile uploadedFile, [FromBody] DispatchRequestViewModel input)
         //{
         //    var saveFilePath = Path.Combine("Images/", uploadedFile.FileName);
         //    using (var stream = new FileStream(saveFilePath, FileMode.Create))
@@ -42,7 +42,7 @@ namespace Drones.WebAPI.Controllers
         //        await uploadedFile.CopyToAsync(stream);
         //    }
 
-        //    var response = await _dispatchApplication.LoadDroneWithMeditionItems(input);
+        //    var response = await _dispatchApplication.LoadDroneWithMedicationItems(input);
 
         //    return Ok(response);
         //}
@@ -53,9 +53,9 @@ namespace Drones.WebAPI.Controllers
         /// <param name="input">A class that contains the DroneId and the List of Medications to Load</param>
         /// <returns>The Response with the Result of the Action</returns>
         [HttpPost("LoadMedicationsToDrone")]
-        public async Task<IActionResult> LoadDroneWithMeditionItems([FromBody] DispatchRequestViewModel input)
+        public async Task<IActionResult> LoadDroneWithMedicationItems([FromBody] DispatchRequestViewModel input)
         {
-            var response = await _dispatchApplication.LoadDroneWithMeditionItems(input);
+            var response = await _dispatchApplication.LoadDroneWithMedicationItems(input);
             if (response.IsSuccess)
             {
                 await _droneApplication.ChangeStateToDrone(input.droneId, StateTypes.LOADED);

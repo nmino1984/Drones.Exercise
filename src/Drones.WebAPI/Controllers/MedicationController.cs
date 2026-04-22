@@ -15,7 +15,7 @@ namespace Drones.WebAPI.Controllers
             this._medicationApplication = medicationApplication;
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> ListMedications()
         {
             var response = await _medicationApplication.ListMedications();

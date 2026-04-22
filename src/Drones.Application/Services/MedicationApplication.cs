@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Drones.Application.Commons.Bases;
 using Drones.Application.Interfaces;
-using Drones.Application.Validators.Category;
+using Drones.Application.Validators;
 using Drones.Application.ViewModels.Drone.Response;
 using Drones.Application.ViewModels.Request;
 using Drones.Application.ViewModels.Response;
