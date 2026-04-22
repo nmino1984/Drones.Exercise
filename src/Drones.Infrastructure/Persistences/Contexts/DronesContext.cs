@@ -18,10 +18,12 @@ public partial class DronesContext : DbContext
     }
 
     public virtual DbSet<TDrone> TDrones { get; set; }
-     
+
     public virtual DbSet<TMedication> TMedications { get; set; }
 
     public virtual DbSet<RDroneMedication> RDroneMedications { get; set; }
+
+    public virtual DbSet<BatteryLog> BatteryLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
