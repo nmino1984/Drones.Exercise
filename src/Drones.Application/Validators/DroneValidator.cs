@@ -22,9 +22,9 @@ namespace Drones.Application.Validators
                 .GreaterThanOrEqualTo(0).WithMessage("Weight Limit can't be Less Than Zero");
 
             RuleFor(x => x.BatteryCapacity)
-                .NotEmpty().WithMessage("Weight Limit can't be Empty")
-                .LessThanOrEqualTo(100).WithMessage("Weight Limit can't be Greater Than 100")
-                .GreaterThanOrEqualTo(0).WithMessage("Weight Limit can't be Less Than Zero");
+                .NotEmpty().WithMessage("Battery Capacity can't be Empty")
+                .LessThanOrEqualTo(100).WithMessage("Battery Capacity can't be Greater Than 100")
+                .GreaterThanOrEqualTo(0).WithMessage("Battery Capacity can't be Less Than Zero");
 
         }
     }

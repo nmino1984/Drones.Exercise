@@ -5,6 +5,7 @@ using Drones.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Drones.Domain.Entities;
 
 namespace Drones.Infrastructure.Extensions
 {
@@ -21,6 +22,7 @@ namespace Drones.Infrastructure.Extensions
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IBatteryLogRepository, BatteryLogRepository>();
 
             services.AddHostedService<BatteryMonitorService>();
 

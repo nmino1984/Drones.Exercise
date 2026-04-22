@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 
-namespace POS.Test
+namespace Drones.Test
 {
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {

@@ -23,6 +23,7 @@ namespace Drones.Application.Extensions
             services.AddScoped<IMedicationApplication, MedicationApplication>();
             services.AddScoped<IDroneApplication, DroneApplication>();
             services.AddScoped<IDispatchApplication, DispatchApplication>();
+            services.AddScoped<IBatteryLogApplication, BatteryLogApplication>();
 
             return services;
         }

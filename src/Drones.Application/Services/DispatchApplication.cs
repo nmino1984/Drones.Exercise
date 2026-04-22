@@ -138,27 +138,19 @@ namespace Drones.Application.Services
         public async Task<BaseResponse<List<MedicationResponseViewModel>>> CheckingLoadedMedicationItemsByDroneGiven(int droneId)
         {
             var response = new BaseResponse<List<MedicationResponseViewModel>>();
-            var returnList = new List<MedicationResponseViewModel>();
-            var listMedication = await _unitOfWork.DroneMedication.CheckLoadedMedicationItemsByDroneGiven(droneId);
+            var medications = await _unitOfWork.DroneMedication.GetMedicationsByDroneId(droneId);
 
-            if (listMedication.Count > 0)
+            if (medications.Count > 0)
             {
-                foreach (var item in listMedication)
-                {
-                    var medication = await _unitOfWork.Medication.GetByIdAsync(item);
-
-                    returnList.Add(new MedicationResponseViewModel
-                    {
-                        Id = medication.Id,
-                        Name = medication.Name,
-                        Code = medication.Code,
-                        Image = medication.Image,
-                        Weight = medication.Weight,
-                    });
-                }
-
                 response.IsSuccess = true;
-                response.Data = returnList;
+                response.Data = medications.Select(m => new MedicationResponseViewModel
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Code = m.Code,
+                    Image = m.Image,
+                    Weight = m.Weight,
+                }).ToList();
                 response.Message = ReplyMessages.MESSAGE_QUERY;
             }
             else

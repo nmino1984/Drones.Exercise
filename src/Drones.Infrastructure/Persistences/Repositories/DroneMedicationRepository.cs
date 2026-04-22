@@ -63,6 +63,15 @@ namespace Drones.Infrastructure.Persistences.Repositories
 
         }
 
+        public async Task<List<TMedication>> GetMedicationsByDroneId(int droneId)
+        {
+            return await _context.RDroneMedications
+                .Where(r => r.IdDrone == droneId && r.Active)
+                .Select(r => r.IdMedicationNavigation)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
         public async Task<bool> EditAsync(RDroneMedication entity)
         {
 
