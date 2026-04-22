@@ -15,7 +15,7 @@ namespace Drones.Application.Validators
 
             RuleFor(x => x.Weight)
                 .NotNull().WithMessage("Weight can't be Null")
-                .GreaterThan(0).WithMessage("Weight must be greater than zero");
+                .Must(w => w.HasValue && w.Value > 0).WithMessage("Weight must be greater than zero");
 
             RuleFor(x => x.Code)
                 .NotNull().WithMessage("Code can't be Null")
