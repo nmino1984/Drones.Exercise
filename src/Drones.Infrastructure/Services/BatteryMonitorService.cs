@@ -36,7 +36,7 @@ public class BatteryMonitorService : BackgroundService
         _logger.LogInformation("BatteryMonitorService stopped.");
     }
 
-    private async Task CheckBatteriesAsync(CancellationToken cancellationToken)
+    internal async Task CheckBatteriesAsync(CancellationToken cancellationToken)
     {
         try
         {

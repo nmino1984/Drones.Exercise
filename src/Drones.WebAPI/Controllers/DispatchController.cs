@@ -12,11 +12,13 @@ namespace Drones.WebAPI.Controllers
     {
         private readonly IDispatchApplication _dispatchApplication;
         private readonly IDroneApplication _droneApplication;
+        private readonly IBatteryLogApplication _batteryLogApplication;
 
-        public DispatchController(IDispatchApplication dispatchApplication, IDroneApplication droneApplication)
+        public DispatchController(IDispatchApplication dispatchApplication, IDroneApplication droneApplication, IBatteryLogApplication batteryLogApplication)
         {
             this._dispatchApplication = dispatchApplication;
             this._droneApplication = droneApplication;
+            this._batteryLogApplication = batteryLogApplication;
         }
 
         /// <summary>
@@ -96,6 +98,16 @@ namespace Drones.WebAPI.Controllers
         public async Task<IActionResult> CheckDroneBatteryLevelByDroneGiven([FromRoute] int droneId)
         {
             var response = await _dispatchApplication.CheckDroneBatteryLevelByDroneGiven(droneId);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Returns the full battery audit log for all drones
+        /// </summary>
+        [HttpGet("BatteryLogs")]
+        public async Task<IActionResult> GetBatteryLogs()
+        {
+            var response = await _batteryLogApplication.GetAllAsync();
             return Ok(response);
         }
     }
